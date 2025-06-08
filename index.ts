@@ -1,4 +1,4 @@
-import { linearClient } from './linear/client'
+import { linearClient } from './linear/client.ts'
 
 async function getMyIssues() {
   const me = await linearClient.viewer;
