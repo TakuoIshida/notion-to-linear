@@ -1,9 +1,8 @@
+import { LinearClient } from "@linear/sdk";
+import dotenv from "dotenv";
 
-import { LinearClient } from '@linear/sdk'
-import dotenv from 'dotenv'
-
-dotenv.config()
+dotenv.config();
 
 export const linearClient = new LinearClient({
-  apiKey: process.env.LINEAR_API_KEY
-})
+	apiKey: process.env.LINEAR_API_KEY,
+});
