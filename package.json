@@ -1,0 +1,15 @@
+{
+	"devDependencies": {
+		"@types/node": "^22.15.30",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.8.3"
+	},
+	"volta": {
+		"node": "24.1.0",
+		"pnpm": "9.4.0"
+	},
+	"dependencies": {
+		"@linear/sdk": "^43.0.0",
+		"dotenv": "^16.5.0"
+	}
+}
