@@ -16,9 +16,10 @@ async function main() {
 		// NOTE: notionのpropertyにはtypeがないのでこれでOK。
 		// notionのdatabaseカラムに設定してるproperty名に合わせて変更すること。
 		const title = page.properties["title"].title[0].plain_text;
-		const asigneeEmail = page.properties["担当者"].people[0].person.email;
-		const status = page.properties["ステータス"].status.name;
-		const storyPoint = page.properties["story point"].number;
+		const asigneeEmail =
+			page.properties["担当者"].people[0]?.person?.email || "";
+		const status = page.properties["ステータス"].status?.name || "";
+		const storyPoint = page.properties["story point"]?.number || 0;
 		console.log(
 			`title:${title} asigneeEmail:${asigneeEmail} status:${status} storyPoint:${storyPoint}`,
 		);
