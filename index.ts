@@ -1,16 +1,31 @@
-import { linearClient } from "./linear/client.ts";
+import { getNotionDatabase } from "./notion/client.ts";
+import { LinearService } from "./linear/client.ts";
 
-async function getMyIssues() {
-	const me = await linearClient.viewer;
-	const myIssues = await me.assignedIssues();
+async function main() {
+	const notionDatabaseId = process.env.NOTION_DATABASE_ID;
+	if (!notionDatabaseId) {
+		throw new Error("NOTION_DATABASE_ID is not set");
+	}
+	const linear = new LinearService();
+	const teamName = "cactus";
+	const teamTasks = await getNotionDatabase(notionDatabaseId, teamName);
 
-	if (myIssues.nodes.length) {
-		myIssues.nodes.map((issue) =>
-			console.log(`${me.displayName} has issue: ${issue.title}`),
+	for (const page of teamTasks.results) {
+		if (!("properties" in page)) continue;
+		console.log("page.properties", page.properties);
+		const title = page.properties["title"].title[0].plain_text;
+		const asigneeEmail = page.properties["担当者"].people[0].person.email;
+		const status = page.properties["ステータス"].status.name;
+		const storyPoint = page.properties["story point"].number;
+		console.log(
+			`title:${title} asigneeEmail:${asigneeEmail} status:${status} storyPoint:${storyPoint}`,
 		);
-	} else {
-		console.log(`${me.displayName} has no issues`);
+	}
+
+	const teams = await linear.listTeams();
+	for (const team of teams.nodes) {
+		console.log(`Name: ${team.name}, ID: ${team.id}`);
 	}
 }
 
-getMyIssues();
+main().catch(console.error);
