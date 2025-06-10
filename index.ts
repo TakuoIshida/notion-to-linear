@@ -13,6 +13,8 @@ async function main() {
 	for (const page of teamTasks.results) {
 		if (!("properties" in page)) continue;
 		console.log("page.properties", page.properties);
+		// NOTE: notionのpropertyにはtypeがないのでこれでOK。
+		// notionのdatabaseカラムに設定してるproperty名に合わせて変更すること。
 		const title = page.properties["title"].title[0].plain_text;
 		const asigneeEmail = page.properties["担当者"].people[0].person.email;
 		const status = page.properties["ステータス"].status.name;
