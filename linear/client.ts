@@ -70,15 +70,13 @@ export class LinearService {
 	async createIssue(input: {
 		title: string;
 		projectId: string;
-		description: string;
 		assigneeId?: string;
-		storyPoint: number;
+		storyPoint?: number;
 	}) {
 		return await this.client.createIssue({
 			teamId: this.teamId,
 			title: input.title,
 			projectId: input.projectId,
-			description: input.description,
 			assigneeId: input.assigneeId,
 			estimate: input.storyPoint,
 		});
